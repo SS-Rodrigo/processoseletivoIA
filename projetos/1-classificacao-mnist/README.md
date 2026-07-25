@@ -125,7 +125,7 @@ dispositivos com recursos limitados.
 
 Informe a acurácia de validação obtida e o tamanho dos arquivos `model.h5` e `model.tflite`.
 
-. Acurácia de validação obtida: 0.9903 ou 99.03%
+. Acurácia de validação obtida: 0.9920 ou 99.20%
 . model.h5: 2.9M
 . model.tflite: 251k
 
