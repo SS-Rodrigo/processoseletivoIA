@@ -85,23 +85,49 @@ projetos/1-classificacao-mnist/
 
 ## 📝 Relatório do Candidato
 
-👤 **Nome Completo:**
+👤 **Nome Completo:** Rodrigo da Silva Santos
 
 ### 1️⃣ Resumo da Arquitetura do Modelo
 
 Descreva, em palavras, a arquitetura da CNN implementada em `train_model.py` (número de blocos convolucionais, uso de batch normalization/dropout, estratégia de validação/early stopping).
 
+ CNN implementada possui três blocos convolucionais. Uma camada Conv2D, responsável por extrair 
+características das imagens, uma camada BatchNormalization, que normaliza as ativações e ajuda a 
+tornar o treinamento mais estável uma camada MaxPooling2D, que reduz as dimensões espaciais dos mapas 
+de características. No primeiro bloco, a convolução utiliza 32 filtros. No segundo, são usados 64 
+filtros. No terceiro, são usados 128 filtros. Todas as convoluções possuem kernels de tamanho 3 × 3, 
+ativação ReLU e preenchimento same.
+Após os três blocos convolucionais, a camada Flatten transforma os mapas de características em um 
+vetor.Esse vetor é enviado para uma camada densa com 128 neurônios e ativação ReLU.
+Em seguida, é aplicada uma camada Dropout(0.5), que desativa aleatoriamente 50% dos neurônios durante 
+o treinamento. Essa técnica ajuda a reduzir o sobreajuste.
+A validação é realizada por meio do parâmetro validation_split=0.20. Dessa forma, 20% das imagens 
+originalmente fornecidas para treinamento são separadas automaticamente para compor o conjunto de 
+validação, enquanto os 80% restantes são utilizados efetivamente no treinamento.
+
 ### 2️⃣ Bibliotecas Utilizadas
 
 Liste as principais bibliotecas utilizadas, preferencialmente com suas versões.
+
+. Tensorflow
+. Numpy
+. os
 
 ### 3️⃣ Técnica de Otimização do Modelo
 
 Explique qual técnica foi utilizada para otimizar o modelo em `optimize_model.py`.
 
+A técnica de otimização utilizada foi a Dynamic Range Quantization, técnica especialmente utilizada 
+no Tensorflow Lite para reduzir o tamanho do modelo e acelerar a inferência, pricipalmente em 
+dispositivos com recursos limitados.
+
 ### 4️⃣ Resultados Obtidos
 
 Informe a acurácia de validação obtida e o tamanho dos arquivos `model.h5` e `model.tflite`.
+
+. Acurácia de validação obtida: 0.9903 ou 99.03%
+. model.h5: 2.9M
+. model.tflite: 251k
 
 ### 5️⃣ Comentários Adicionais (Opcional)
 
@@ -110,3 +136,12 @@ Dificuldades encontradas, decisões técnicas importantes, limitações do model
 ### 6️⃣ Exemplo de Inferência
 
 Cole a saída do terminal ao rodar `run_inference.py` (predito vs. real para as 5+ amostras), e comente brevemente se houve algum caso interessante (acerto ou erro) entre as amostras testadas.
+
+Amostra 1: predito=7 | real=7
+Amostra 2: predito=2 | real=2
+Amostra 3: predito=1 | real=1
+Amostra 4: predito=0 | real=0
+Amostra 5: predito=4 | real=4
+
+Nas cinco amostras testadas, o modelo classificou corretamente todos os dígitos, houve concordância 
+entre a classe predita e a classe real em 100% dos casos apresentados.
